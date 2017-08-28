@@ -1,0 +1,16 @@
+<% 
+  import org.apache.commons.lang.StringEscapeUtils;
+  def rcontext = _ctx.getRequestContext();
+  def requireJs = rcontext.getJavascriptManager().getRequireJS();
+  // FIXME Workaround for WIKI-1348
+  requireJs.require("SHARED/wikiMermaid", "wikiMermaid");
+  requireJs.require("SHARED/WikiLayout", "WikiLayout");  
+  requireJs.addScripts("WikiLayout.initHeightForPreview();") ; 
+%>
+
+<div class="uiWikiPagePreview">
+  <div class="uiWikiPageTitlePreview">
+    <%=StringEscapeUtils.escapeHtml(uicomponent.pageTitle)%>
+  </div>
+  <% uicomponent.renderChildren(); %>
+</div>

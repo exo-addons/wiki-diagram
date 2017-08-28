@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<gatein-resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.exoplatform.org/xml/ns/gatein_resources_1_4 http://www.exoplatform.org/xml/ns/gatein_resources_1_4"
+    xmlns="http://www.exoplatform.org/xml/ns/gatein_resources_1_4">
+    <portal-skin>
+      <skin-name>Default</skin-name>
+      <skin-module>Mermaid</skin-module>
+      <css-path>/css/mermaid.css</css-path>
+      <css-priority>0</css-priority>
+    </portal-skin>
+    <module>
+        <name>wikiMermaid</name>
+        <as>wikiMermaid</as>
+        <load-group>wikiView</load-group>
+        <script>
+            <path>/javascript/xwiki-mermaid.js</path>
+        </script>
+        <depends>
+            <module>jquery</module>
+            <as>jQuery</as>
+        </depends>
+        <depends>
+            <module>mermaidJS</module>
+            <as>mermaidJS</as>
+        </depends>
+    </module>
+    <module>
+        <name>mermaidJS</name>
+        <as>mermaidJS</as>
+        <load-group>wikiView</load-group>
+        <script>
+            <minify>false</minify>
+            <path>/javascript/mermaid.min.js</path>
+        </script>
+        <depends>
+            <module>jquery</module>
+            <as>jQuery</as>
+        </depends>
+        <depends>
+            <module>base</module>
+            <as>gtnbase</as>
+        </depends>
+    </module>
+</gatein-resources>

@@ -1,0 +1,28 @@
+<%
+import org.exoplatform.wiki.utils.WikiHTMLSanitizer;
+  def rcontext = _ctx.getRequestContext() ;  
+  
+  def requireJs = rcontext.getJavascriptManager().getRequireJS();
+  requireJs.require("SHARED/UIWikiPortlet", "UIWikiPortlet");
+  // FIXME Workaround for WIKI-1348
+  requireJs.require("SHARED/wikiMermaid", "wikiMermaid");
+  requireJs.addScripts("UIWikiPortlet.makeRenderingErrorsExpandable('"+uicomponent.id+ "');");
+  requireJs.addScripts("UIWikiPortlet.decorateSpecialLink('"+uicomponent.id+ "');");
+  requireJs.addScripts("UIWikiPortlet.initMacros();");
+  requireJs.addScripts("UIWikiPortlet.fixImageUrl(" + uicomponent.getUpdatedDate() + ");");
+  
+  String msg = _ctx.appRes("UIWikiContentDisplay.msg.invalid-characters-in-link");
+  msg = msg.replace("{0}",uicomponent.INVALID_CHARACTERS);
+  
+%>
+<div class="uiWikiContentDisplay" id="$uicomponent.id">
+  <div class="invalidChars" style="display:none">$msg</div>
+  <%=WikiHTMLSanitizer.markupSanitize(uicomponent.getHtmlOutput())%>
+</div>
+<script type="text/javascript" src="/wiki/javascript/xwiki/xwiki.js"></script>
+<script type="text/javascript">
+  XWiki.contextaction = 'preview';
+  if(XWiki.fixLinksTargetAttribute){
+    XWiki.fixLinksTargetAttribute(undefined);  
+  }
+</script>
